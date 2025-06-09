@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Styled Form</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background: linear-gradient(to right, #00b4db, #0083b0);
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .form-container {
+            background-color: #ffffff;
+            padding: 40px 30px;
+            border-radius: 15px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 400px;
+            margin-left: 200px;
+
+            animation: fadeIn 1s ease-in-out;
+        }
+
+
+        .form-container h2 {
+            text-align: center;
+            margin-bottom: 25px;
+            color: #333;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #444;
+        }
+
+        input[type="text"],
+        input[type="email"],
+        input[type="password"] {
+            width: 100%;
+            padding: 10px 12px;
+            margin-bottom: 20px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            outline: none;
+            transition: border-color 0.3s;
+        }
+
+        input:focus {
+            border-color: #00b4db;
+        }
+
+        .submit-btn {
+            width: 100%;
+            padding: 12px;
+            background-color: #00b4db;
+            color: white;
+            font-weight: bold;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .submit-btn:hover {
+            background-color: #0083b0;
+        }
+
+        .popup {
+            display: none;
+            position: fixed;
+            top: 30%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: #27de21;
+            color: white;
+            padding: 20px 30px;
+            border-radius: 10px;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+            font-size: 18px;
+            z-index: 1000;
+            animation: fadeInOut 2s ease-in-out;
+        }
+
+        @keyframes fadeInOut {
+            0% {
+                opacity: 0;
+                transform: translate(-50%, -60%);
+            }
+
+            20% {
+                opacity: 1;
+                transform: translate(-50%, -50%);
+            }
+
+            80% {
+                opacity: 1;
+                transform: translate(-50%, -50%);
+            }
+
+            100% {
+                opacity: 0;
+                transform: translate(-50%, -40%);
+            }
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .form-container {
+            /* existing styles... */
+            animation: fadeIn 1s ease-in-out;
+        }
+
+        @media (max-width: 768px) {
+            .form-container {
+                width: 90%;
+                margin-left: 0;
+                padding: 30px 20px;
+            }
+
+            .color {
+                margin-top: 40px;
+                width: 90%;
+                font-size: 14px;
+                padding: 10px;
+            }
+
+            h2 {
+                font-size: 22px;
+            }
+
+            input[type="email"],
+            input[type="password"] {
+                font-size: 14px;
+                padding: 8px 10px;
+            }
+
+            .submit-btn {
+                padding: 10px;
+                font-size: 14px;
+            }
+
+            .popup {
+                font-size: 16px;
+                padding: 15px 20px;
+            }
+
+            .form-container form div {
+                text-align: center !important;
+            }
+        }
+    </style>
+</head>
+{% with messages = get_flashed_messages() %}
+{% if messages %}
+{% for message in messages %}
+<center>{{ message }}</center>
+{% endfor %}
+{% endif %}
+{% endwith %}
+
+<body>
+    <div class="form-container">
+        <h2 style="text-decoration: underline;">Register</h2>
+        <form method="post">
+            <label>Username:</label>
+            <input type="text" name="username" placeholder="Enter username">
+
+            <label>Email:</label>
+            <input type="email" name="email" placeholder="Enter email">
+
+            <label>Password:</label>
+            <input type="password" name="password" placeholder="Enter password">
+
+            <button class="submit-btn">Sign Up</button>
+        </form>
+        <div id="popup" class="popup">
+            <p>Login Successful</p>
+        </div>
+    </div>
+
+    <script>
+        const form = document.querySelector("form");
+        const popup = document.getElementById("popup");
+
+        form.addEventListener("submit", function (event) {
+            event.preventDefault(); // prevent actual submission for demo
+
+            // You can add validation here
+
+            // Show popup
+            popup.style.display = "block";
+
+            // Hide popup after 2 seconds
+            setTimeout(() => {
+                popup.style.display = "none";
+                form.submit(); // submit after popup if needed
+            }, 2000);
+        });
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,29 @@
+{% extends 'dashboard.html' %}
+{% block addcss %}
+    <link rel="stylesheet" href="{{url_for('static',filename='viewallnotes.css')}}">
+{% endblock %}
+{% block content %}
+    <center>
+        <h1>view all notes</h1>
+        <table>
+            <tr>
+                <th>Notes_id</th>
+                <th>Title</th>
+                <th>Created_at</th>
+                <th>View</th>
+                <th>Update</th>
+                <th>Delete</th>
+            </tr>
+            {% for i in allnotesdata %}
+            <tr>
+                <td>{{i[0]}} </td>
+                <td>{{i[1]}}</td>
+                <td>{{i[2]}}</td>
+                <td><a href="{{url_for('viewnotes',nid=i[0])}}"><button class="view-btn">Viewnotes</button></a></td>
+                <td><a href="{{url_for('updatenotes',nid=i[0])}}"><button class="view-btn">Update</button></a></td>
+                <td><a href="{{url_for('deletenotes',nid=i[0])}}"><button class="view-btn">Delete</button></a></td>
+            </tr>
+            {% endfor %}
+        </table>
+    </center>
+{% endblock %}

@@ -1,0 +1,33 @@
+{% extends 'dashboard.html' %}
+{% block addcss %}
+  <link rel="stylesheet" href="{{url_for('static',filename='addnotes.css')}}">
+{% endblock %}
+
+{% block content %}
+  <!-- Display Logged-in User -->
+  <div class="user-info">
+    Logged in as: {{ session.get('user') }}
+  </div>
+
+  <section>
+    <div class="image">
+      <img src="https://static.vecteezy.com/system/resources/previews/011/288/616/original/a-light-green-paper-note-attached-to-a-map-pin-suitable-for-writing-study-notes-at-home-or-at-work-free-png.png" alt="Note image" />
+    </div>
+
+    <div class="container">
+      <h1>Add Notes</h1>
+      <form method="POST">
+            <div>
+            <label for="title">Title</label><br>
+            <input type="text" placeholder="Enter Title" name="title" id="title" required />
+            </div>
+            <div>
+            <label for="description">Description</label><br>
+            <textarea type="text" placeholder="Enter Description" name="description" id="description" rows="6" required ></textarea>
+            </div>
+            <button type="submit">Submit</button>
+      </form>
+    </div>
+  </section>
+
+{% endblock %}

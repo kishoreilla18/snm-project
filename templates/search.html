@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Searching Data</title>
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(to right, #a18cd1, #fbc2eb);
+            margin: 0;
+            padding: 20px;
+            color: #fff;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        h1 {
+            margin-bottom: 20px;
+        }
+
+        .search-container {
+            margin-bottom: 25px;
+            width: 100%;
+            max-width: 600px;
+            display: flex;
+            justify-content: center;
+        }
+
+        .search-container input[type="text"] {
+            width: 100%;
+            padding: 12px 15px;
+            font-size: 16px;
+            border: none;
+            border-radius: 8px 0 0 8px;
+            outline: none;
+        }
+
+        .search-container button {
+            padding: 12px 20px;
+            font-size: 16px;
+            border: none;
+            background-color: #007799;
+            color: white;
+            cursor: pointer;
+            border-radius: 0 8px 8px 0;
+            transition: background-color 0.3s ease;
+        }
+
+        .search-container button:hover {
+            background-color: #005f73;
+        }
+
+        table {
+            width: 100%;
+            max-width: 1000px;
+            border-collapse: collapse;
+            background-color: #ffffff;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+            color: #333;
+        }
+
+        th,
+        td {
+            padding: 15px;
+            text-align: center;
+        }
+
+        th {
+            background-color: #0083b0;
+            color: white;
+            font-size: 18px;
+        }
+
+        tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+
+        tr:hover {
+            background-color: #e0f7fa;
+        }
+
+        .view-btn {
+            background-color: #00b4db;
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            font-size: 14px;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .view-btn:hover {
+            background-color: #007799;
+        }
+
+        @media (max-width: 768px) {
+
+            table,
+            thead,
+            tbody,
+            th,
+            td,
+            tr {
+                display: block;
+                width: 100%;
+            }
+
+            thead tr {
+                display: none;
+            }
+
+            tr {
+                margin-bottom: 15px;
+                border: 1px solid #ccc;
+                border-radius: 10px;
+                background-color: #fff;
+            }
+
+            td {
+                text-align: left;
+                padding: 10px;
+                position: relative;
+            }
+
+            td::before {
+                content: attr(data-label);
+                font-weight: bold;
+                color: #007799;
+                display: block;
+                margin-bottom: 5px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <h1>Search Notes</h1>
+    <div style="margin-bottom: 20px; margin-right: 100px; width: 100%; max-width: 1000px; display: flex; justify-content: flex-end;">
+        <a href="{{ url_for('dashboard') }}">
+            <button class="view-btn">Home</button>
+        </a>
+    </div>
+
+    <div class="search-container">
+        <form action="{{url_for('search')}}" method="post" style="display: flex; width: 100%;">
+            <input type="text" name="s_data" placeholder="Search by title or date..." required>
+            <button type="submit">Search</button>
+        </form>
+    </div>
+
+    {% if sdata %}
+    <table>
+        <thead>
+            <tr>
+                <th>Notes_id</th>
+                <th>Title</th>
+                <th>Created_at</th>
+                <th>View</th>
+                <th>Update</th>
+                <th>Delete</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for i in sdata %}
+            <tr>
+                <td data-label="Notes_id">{{i[0]}}</td>
+                <td data-label="Title">{{i[1]}}</td>
+                <td data-label="Created_at">{{i[2]}}</td>
+                <td data-label="View"><a href="{{url_for('viewnotes', nid=i[0])}}"><button
+                            class="view-btn">View</button></a></td>
+                <td data-label="Update"><a href="{{url_for('updatenotes', nid=i[0])}}"><button
+                            class="view-btn">Update</button></a></td>
+                <td data-label="Delete"><a href="{{url_for('deletenotes', nid=i[0])}}"><button
+                            class="view-btn">Delete</button></a></td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    {% endif %}
+
+</body>
+
+</html>

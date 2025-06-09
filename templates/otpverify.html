@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OTP verify</title>
+    <link rel="stylesheet" href="{{url_for('static',filename='otpverify.css')}}">
+</head>
+{% with messages = get_flashed_messages() %}
+  {% if messages %}
+    {% for message in messages %}
+      <center class="flash-message">{{ message }}</center>
+    {% endfor %}
+  {% endif %}
+{% endwith %}
+<body>
+    <center>
+        <form method="post">
+            <input type="text" placeholder="Enter OTP" name="userotp">
+            <button>Submit</button>
+        </form>
+    </center>
+</body>
+</html>
